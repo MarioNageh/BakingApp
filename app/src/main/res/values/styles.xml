@@ -9,4 +9,13 @@
         <item name="cardViewStyle">@style/CardView</item>
     </style>
 
+    <!-- Base Fullscreen Application Theme -->
+    <style name="AppFullscreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+
+        <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
+    </style>
+
 </resources>

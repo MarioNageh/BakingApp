@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -83,6 +84,9 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
 
         // setup Xml Clicks
         setupXmlClicks();
+
+        // layout specific changes
+        setupLayoutSpecificChanges();
 
         return view;
     }
@@ -169,6 +173,20 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
 
             setupXmlViews();
         });
+    }
+
+    private void setupLayoutSpecificChanges(){
+        boolean isLandscape = ! getResources().getBoolean(R.bool.is_portrait);
+        boolean isPhone = getResources().getBoolean(R.bool.is_phone);
+        if (isLandscape && isPhone){
+            binding.frameLayout.post(() -> {
+                // Setting height to match_parent will make it non-scrollable
+                // so i thought of this workaround and it is awesome and scrolls ok.
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT, binding.frameLayout.getHeight());
+                binding.frameLayout.setLayoutParams(params);
+            });
+        }
     }
 
     /** {@link #setupXmlViews()} */
