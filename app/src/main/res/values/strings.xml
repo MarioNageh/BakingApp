@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Baking App</string>
+
+    <!-- Main Activity Class -->
+    <string name="servings_with_variable_int">Servings: %1$d</string>
+
+    <!-- activity_main.xml.xml -->
+    <string name="no_recipes_found">No Recipes Found</string>
+    <string name="poor_internet_connection">Poor Internet Connection</string>
+    <string name="click_below_button_to_refresh">Click below button to refresh</string>
+    <string name="recipe_image">Recipe Image</string>
+
+    <!-- Recipe Steps Master Fragment Class -->
+    <string name="ingredients">Ingredients</string>
+
+    <!-- activity_recipe_steps_detail.xml -->
+    <string name="previous_step">Previous Step</string>
+    <string name="next_step">Next Step</string>
+    <string name="recipe_step_image">Recipe Step Image</string>
+    <string name="retry">Retry</string>
+
+</resources>

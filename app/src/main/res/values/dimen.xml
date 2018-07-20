@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- activity_main.xml -->
+    <dimen name="poor_internet_connection_title_margin">8dp</dimen>
+    <dimen name="poor_internet_connection_fab_margin">8dp</dimen>
+
+    <!-- item_recipe_list.xml -->
+    <dimen name="item_card_view_margin">16dp</dimen>
+    <dimen name="item_card_view_elevation">4dp</dimen>
+    <dimen name="item_image_view_height">120dp</dimen>
+
+</resources>

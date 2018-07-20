@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="android.mohamedalaa.com.bakingapp.viewmodel.MainViewModel"/>
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        android:background="@color/colorPrimaryLight">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recipeRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:visibility="@{safeUnbox(viewModel.recipeViewsVisibilities[1]) ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <!-- In case recipes were zero recipes -->
+        <TextView
+            android:id="@+id/emptyViewTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:gravity="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+
+            android:text="@string/no_recipes_found"
+
+            android:visibility="@{safeUnbox(viewModel.recipeViewsVisibilities[2]) ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <ProgressBar
+            android:id="@+id/loadingProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+
+            android:visibility="@{safeUnbox(viewModel.recipeViewsVisibilities[3]) ? View.VISIBLE : View.INVISIBLE}"/>
+
+        <LinearLayout
+            android:id="@+id/poorInternetConnectionLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:orientation="vertical"
+
+            android:gravity="center"
+
+            android:visibility="@{safeUnbox(viewModel.recipeViewsVisibilities[4]) ? View.VISIBLE : View.INVISIBLE}">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+
+                android:text="@string/poor_internet_connection"
+
+                android:layout_margin="@dimen/poor_internet_connection_title_margin"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+
+                android:text="@string/click_below_button_to_refresh"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_margin="@dimen/poor_internet_connection_fab_margin"
+
+                app:fabSize="mini"
+
+                android:onClick="@{() -> viewModel.fabClickRetryGettingRecipeListFromInternet()}"
+
+                android:src="@drawable/ic_baseline_refresh_24px"/>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</layout>

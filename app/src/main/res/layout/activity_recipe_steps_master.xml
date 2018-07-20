@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fragment
+    android:id="@+id/recipeStepsMasterFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="android.mohamedalaa.com.bakingapp.view.RecipeStepsMasterFragment"
+    tools:showIn="@layout/fragment_recipe_steps_master"
+    tools:context="android.mohamedalaa.com.bakingapp.view.RecipeStepsMasterActivity"/>
