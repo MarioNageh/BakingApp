@@ -83,14 +83,14 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
         // Receive Intent Values
         receiveIntentValues();
 
+        // layout specific changes
+        setupLayoutSpecificChanges();
+
         // setup Xml Views
         setupXmlViews();
 
         // setup Xml Clicks
         setupXmlClicks();
-
-        // layout specific changes
-        setupLayoutSpecificChanges();
 
         return view;
     }
@@ -164,7 +164,8 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
 
             makeImageSetups();
         }else {
-            binding.frameLayout.setVisibility(View.GONE);
+            binding.frameLayout.post(()
+                    -> binding.frameLayout.setVisibility(View.GONE));
         }
     }
 

@@ -45,6 +45,11 @@ public class MainActivityTest {
         IdlingRegistry.getInstance().register(idlingResource);
     }
 
+    @Before
+    public void intentsSetup(){
+        Intents.init();
+    }
+
     /**
      * test if no connection that button fab inside noInternetConnectionView is clickable.
      *
@@ -97,7 +102,6 @@ public class MainActivityTest {
 
             // Check if item click launched the next activity
             // used Intents.init() instead of @Rule intent as we have as well idling resources
-            Intents.init();
             Intents.intended(
                     IntentMatchers.isInternal());
 
@@ -110,6 +114,11 @@ public class MainActivityTest {
         if (idlingResource != null){
             IdlingRegistry.getInstance().unregister(idlingResource);
         }
+    }
+
+    @After
+    public void intentsRelease(){
+        Intents.release();
     }
 
 }
