@@ -64,6 +64,9 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
     private DataSource.Factory dataSourceFactory;
     private MediaSource videoSource;
 
+    /** Used only in case of tablet */
+    private List<Steps> tempStepsList;
+
     public RecipeStepsDetailFragment(){}
 
     @Nullable
@@ -108,11 +111,18 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
     }
 
     private void setupXmlViews(){
+        // Only is null in case of tablet
+        if (viewModel.stepsList == null){
+            viewModel.stepsList = tempStepsList;
+            tempStepsList = null;
+            viewModel.indexChosen = 0;
+        }
+
         // Short- && Full-Description
         Steps step = viewModel.stepsList.get(
                 viewModel.indexChosen);
         binding.shortDescriptionTextView.setText(step.getShortDescription());
-        binding.fullDescriptionTextView.setText(step.getShortDescription());
+        binding.fullDescriptionTextView.setText(step.getDescription());
 
         // disable previous && next button, if needed
         if (viewModel.indexChosen == 0){
@@ -355,4 +365,19 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
     public void onSeekProcessed() {
 
     }
+
+    // ---- Public Methods
+
+    public void setStepList(List<Steps> stepList){
+        this.tempStepsList = stepList;
+    }
+
+    public void changeIndexChosen(int indexChosen){
+        viewModel.indexChosen = indexChosen;
+
+        releasePlayer();
+
+        setupXmlViews();
+    }
+
 }

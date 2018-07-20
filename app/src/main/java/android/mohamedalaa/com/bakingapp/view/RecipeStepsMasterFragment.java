@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -118,6 +119,7 @@ public class RecipeStepsMasterFragment extends Fragment implements
         }
 
         adapter = new StepsRecyclerViewAdapter(
+                getContext(),
                 viewModel.adapterShortDescriptionList,
                 viewModel.adapterFullDescriptionList,
                 this);
@@ -125,7 +127,13 @@ public class RecipeStepsMasterFragment extends Fragment implements
 
     private void setupXmlViews() {
         // -- Setup Recycler View
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        boolean isTablet = ! getResources().getBoolean(R.bool.is_phone);
+        boolean isPortrait = getResources().getBoolean(R.bool.is_portrait);
+        boolean isTabletAndPortrait = isTablet && isPortrait;
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
+                getContext(),
+                isTabletAndPortrait ? LinearLayoutManager.HORIZONTAL : LinearLayoutManager.VERTICAL,
+                false);
         binding.stepsRecyclerView.setLayoutManager(linearLayoutManager);
         // adapter has already been initialized.
         binding.stepsRecyclerView.setAdapter(adapter);
@@ -166,6 +174,15 @@ public class RecipeStepsMasterFragment extends Fragment implements
         intent.putExtra(RecipeStepsDetailFragment.INTENT_KEY_STEP_INDEX_CHOSEN, stepIndex);
 
         startActivity(intent);
+    }
+
+    @Override
+    public void tabletOnItemClick(int currentStepIndex) {
+        FragmentActivity fragmentActivity = getActivity();
+        if (fragmentActivity != null && fragmentActivity instanceof RecipeStepsMasterActivity){
+            ((RecipeStepsMasterActivity) fragmentActivity)
+                    .changeCurrentStep(currentStepIndex);
+        }
     }
 
 }
