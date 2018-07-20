@@ -66,6 +66,7 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
 
     /** Used only in case of tablet */
     private List<Steps> tempStepsList;
+    private int tempIndexChosen;
 
     public RecipeStepsDetailFragment(){}
 
@@ -115,7 +116,7 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
         if (viewModel.stepsList == null){
             viewModel.stepsList = tempStepsList;
             tempStepsList = null;
-            viewModel.indexChosen = 0;
+            viewModel.indexChosen = tempIndexChosen;
         }
 
         // Short- && Full-Description
@@ -370,6 +371,10 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
 
     public void setStepList(List<Steps> stepList){
         this.tempStepsList = stepList;
+    }
+
+    public void setIndexChosen(int indexChosen){
+        this.tempIndexChosen = indexChosen;
     }
 
     public void changeIndexChosen(int indexChosen){

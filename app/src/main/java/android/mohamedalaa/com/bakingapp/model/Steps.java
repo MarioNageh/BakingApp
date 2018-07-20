@@ -1,23 +1,12 @@
 package android.mohamedalaa.com.bakingapp.model;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.ForeignKey;
-import android.arch.persistence.room.PrimaryKey;
-
 import java.io.Serializable;
 
 /**
  * Created by Mohamed on 7/17/2018.
  *
  */
-/*@Entity(foreignKeys = @ForeignKey(entity = Recipe.class,
-        parentColumns = "id",
-        childColumns = "childIdTwo",
-        onDelete = ForeignKey.CASCADE))*/
 public class Steps implements Serializable {
-
-    /*@PrimaryKey
-    private int childIdTwo;*/
 
     private String shortDescription;
 
@@ -33,14 +22,6 @@ public class Steps implements Serializable {
         this.videoURL = videoURL;
         this.thumbnailURL = thumbnailURL;
     }
-
-    /*public int getChildIdTwo() {
-        return childIdTwo;
-    }
-
-    public void setChildIdTwo(int childIdTwo) {
-        this.childIdTwo = childIdTwo;
-    }*/
 
     public String getShortDescription() {
         return shortDescription;

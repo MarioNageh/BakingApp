@@ -1,14 +1,8 @@
 package android.mohamedalaa.com.bakingapp.cutomClasses;
 
-import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.Nullable;
 import android.support.test.espresso.IdlingResource;
-import android.support.v7.widget.CardView;
-import android.view.View;
 
-import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**

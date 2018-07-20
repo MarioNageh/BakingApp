@@ -142,4 +142,11 @@ public class StepsRecyclerViewAdapter extends
 
     }
 
+    // ---- Public Methods
+
+    public void setCurrentStepIndex(int currentStepIndex){
+        this.currentStepIndex = currentStepIndex;
+        notifyDataSetChanged();
+    }
+
 }

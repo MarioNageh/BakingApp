@@ -1,7 +1,6 @@
 package android.mohamedalaa.com.bakingapp.model.database.converters;
 
 import android.arch.persistence.room.TypeConverter;
-import android.mohamedalaa.com.bakingapp.model.Ingredients;
 import android.mohamedalaa.com.bakingapp.model.Steps;
 
 import com.google.gson.Gson;

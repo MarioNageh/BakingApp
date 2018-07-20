@@ -4,7 +4,6 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 import java.util.List;
-import java.util.List;
 
 /**
  * Created by Mohamed on 7/17/2018.

@@ -22,6 +22,8 @@ public class RecipeStepsMasterViewModel extends AndroidViewModel {
     public List<String> adapterShortDescriptionList;
     public List<String> adapterFullDescriptionList;
 
+    public int tabletAdapterIndexChosen;
+
     public RecipeStepsMasterViewModel(@NonNull Application application) {
         super(application);
     }

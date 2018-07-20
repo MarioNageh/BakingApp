@@ -185,4 +185,10 @@ public class RecipeStepsMasterFragment extends Fragment implements
         }
     }
 
+    // ---- Public Methods
+
+    public void setCurrentStepIndexInsideAdapter(int currentStepIndex){
+        adapter.setCurrentStepIndex(currentStepIndex);
+    }
+
 }

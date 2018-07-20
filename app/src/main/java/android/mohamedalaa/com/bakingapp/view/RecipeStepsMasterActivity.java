@@ -3,7 +3,7 @@ package android.mohamedalaa.com.bakingapp.view;
 import android.arch.lifecycle.ViewModelProviders;
 import android.mohamedalaa.com.bakingapp.R;
 import android.mohamedalaa.com.bakingapp.model.Steps;
-import android.mohamedalaa.com.bakingapp.viewmodel.RecipeStepsDetailViewModel;
+import android.mohamedalaa.com.bakingapp.viewmodel.RecipeStepsMasterViewModel;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,18 +12,23 @@ import java.util.List;
 
 public class RecipeStepsMasterActivity extends AppCompatActivity {
 
-    // todo in orient changes u have to keep the fragment master step colored ALong with fragment detail but not now
-    // todo and it has to be in viewModel isa
-
     private static final String FRAGMENT_MANAGER_TAG_RECIPE_STEPS_DETAIL_FRAGMENT
             = "FRAGMENT_MANAGER_TAG_RECIPE_STEPS_DETAIL_FRAGMENT";
 
     private RecipeStepsDetailFragment detailFragment;
 
+    private RecipeStepsMasterViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_steps_master);
+
+        // Get instance of view model
+        // Note this instance is not the same instance inside the fragment, since the container
+        // here is the activity and there is the fragment.
+        viewModel = ViewModelProviders.of(this)
+                .get(RecipeStepsMasterViewModel.class);
 
         // setup dynamic fragment if tablet
         boolean isTablet = ! getResources().getBoolean(R.bool.is_phone);
@@ -45,6 +50,7 @@ public class RecipeStepsMasterActivity extends AppCompatActivity {
                     .getSerializableExtra(RecipeStepsMasterFragment.INTENT_KEY_STEPS_LIST);
 
             detailFragment.setStepList(stepsList);
+            detailFragment.setIndexChosen(viewModel.tabletAdapterIndexChosen);
 
             fragmentManager.beginTransaction()
                     .add(R.id.recipeStepsDetailFragmentFrameLayout, detailFragment,
@@ -62,11 +68,17 @@ public class RecipeStepsMasterActivity extends AppCompatActivity {
                         .getSerializableExtra(RecipeStepsMasterFragment.INTENT_KEY_STEPS_LIST);
 
                 detailFragment.setStepList(stepsList);
+                detailFragment.setIndexChosen(viewModel.tabletAdapterIndexChosen);
 
                 fragmentManager.beginTransaction()
                         .add(R.id.recipeStepsDetailFragmentFrameLayout, detailFragment,
                                 FRAGMENT_MANAGER_TAG_RECIPE_STEPS_DETAIL_FRAGMENT)
                         .commit();
+            }else {
+                RecipeStepsMasterFragment masterFragment = (RecipeStepsMasterFragment)
+                        fragmentManager.findFragmentById(R.id.recipeStepsMasterFragment);
+                masterFragment.setCurrentStepIndexInsideAdapter(viewModel.tabletAdapterIndexChosen);
+                //changeCurrentStep();
             }
         }
     }
@@ -76,6 +88,7 @@ public class RecipeStepsMasterActivity extends AppCompatActivity {
     /** For tablet only */
     public void changeCurrentStep(int currentStepIndex){
         detailFragment.changeIndexChosen(currentStepIndex);
+        viewModel.tabletAdapterIndexChosen = currentStepIndex;
     }
 
 }
