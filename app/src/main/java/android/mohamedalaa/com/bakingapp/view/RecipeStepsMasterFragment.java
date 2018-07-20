@@ -161,9 +161,9 @@ public class RecipeStepsMasterFragment extends Fragment implements
     public void onItemClick(int stepIndex) {
         Intent intent = new Intent(getContext(), RecipeStepsDetailActivity.class);
 
-        intent.putExtra(RecipeStepsDetailActivity.INTENT_KEY_STEPS_LIST,
+        intent.putExtra(RecipeStepsDetailFragment.INTENT_KEY_STEPS_LIST,
                 ((Serializable) (viewModel.stepsList == null ? new ArrayList<>() : viewModel.stepsList)));
-        intent.putExtra(RecipeStepsDetailActivity.INTENT_KEY_STEP_INDEX_CHOSEN, stepIndex);
+        intent.putExtra(RecipeStepsDetailFragment.INTENT_KEY_STEP_INDEX_CHOSEN, stepIndex);
 
         startActivity(intent);
     }
