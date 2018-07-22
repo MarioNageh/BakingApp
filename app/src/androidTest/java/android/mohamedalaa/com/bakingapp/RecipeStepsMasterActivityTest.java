@@ -29,7 +29,7 @@ import java.util.List;
 public class RecipeStepsMasterActivityTest {
 
     @Rule
-    public ActivityTestRule<RecipeStepsMasterActivity> ruleRecipeStepsMasterActivity
+    public final ActivityTestRule<RecipeStepsMasterActivity> ruleRecipeStepsMasterActivity
             = new ActivityTestRule<>(RecipeStepsMasterActivity.class, false, false);
 
     @Before

@@ -34,11 +34,11 @@ public class MainViewModel extends AndroidViewModel {
 
     // --- Xml Observable Variables
 
-    public ObservableMap<Integer , Boolean> recipeViewsVisibilities = new ObservableArrayMap<>();
+    public final ObservableMap<Integer , Boolean> recipeViewsVisibilities = new ObservableArrayMap<>();
 
     // --- Class Live Data Variable
 
-    public MutableLiveData<List<Recipe>> recipesListLiveData = new MutableLiveData<>();
+    public final MutableLiveData<List<Recipe>> recipesListLiveData = new MutableLiveData<>();
 
     // --- Private Variables
 
@@ -106,7 +106,7 @@ public class MainViewModel extends AndroidViewModel {
 
     // --- Private Listener Variables
 
-    private ObservableMap.OnMapChangedCallback<ObservableMap<Integer, Boolean>, Integer, Boolean> observableCallbackRecipeViewsVisibilities
+    private final ObservableMap.OnMapChangedCallback<ObservableMap<Integer, Boolean>, Integer, Boolean> observableCallbackRecipeViewsVisibilities
             = new ObservableMap.OnMapChangedCallback<ObservableMap<Integer, Boolean>, Integer, Boolean>() {
         @Override
         public void onMapChanged(ObservableMap<Integer, Boolean> observableMap, Integer integer) {

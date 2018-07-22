@@ -23,10 +23,10 @@ import java.util.List;
 public class StepsRecyclerViewAdapter extends
         RecyclerView.Adapter<StepsRecyclerViewAdapter.StepsViewHolder> {
 
-    private Context context;
-    private List<String> shortDescriptionList;
-    private List<String> fullDescriptionList;
-    private StepsAdapterListener listener;
+    private final Context context;
+    private final List<String> shortDescriptionList;
+    private final List<String> fullDescriptionList;
+    private final StepsAdapterListener listener;
 
     // Added for Tablet
     private int currentStepIndex = 0;

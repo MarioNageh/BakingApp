@@ -32,7 +32,7 @@ public class RecipeStepsDetailActivityTest {
             = "https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffd974_-intro-creampie/-intro-creampie.mp4";
 
     @Rule
-    public ActivityTestRule<RecipeStepsDetailActivity> ruleRecipeStepsDetailActivity
+    public final ActivityTestRule<RecipeStepsDetailActivity> ruleRecipeStepsDetailActivity
             = new ActivityTestRule<>(RecipeStepsDetailActivity.class, false, false);
 
     @Before

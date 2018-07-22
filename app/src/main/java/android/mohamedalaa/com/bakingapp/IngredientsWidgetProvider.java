@@ -31,8 +31,8 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
      * 4- and the other to immediately launch app, without the need of searching for it
      *      in System App drawer (Quick Access).
      */
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId, List<Recipe> recipeList) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId, List<Recipe> recipeList) {
         // Get current width to decide either
         //      App launcher widget OR ingredients list
         Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);

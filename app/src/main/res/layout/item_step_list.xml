@@ -20,17 +20,17 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="@dimen/step_card_view_linear_layout_height"
 
             android:layout_gravity="center"
-            android:layout_margin="8dp"
+            android:layout_margin="@dimen/step_card_view_linear_layout_margin"
 
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/stepNumberTextView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/step_card_view_circle_width"
+                android:layout_height="@dimen/step_card_view_circle_height"
 
                 android:background="@drawable/step_item_circle"
 
@@ -77,13 +77,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:textSize="16sp"
+            android:textSize="@dimen/step_card_view_full_description_size"
             android:textColor="@android:color/secondary_text_light"
             tools:text="2. Whisk the graham cracker crumbs, 50 grams (1/4 cup) of sugar, and 1/2 teaspoon of salt together in a medium bowl. Pour the melted butter and 1 teaspoon of vanilla into the dry ingredients and stir together until evenly mixed."
 
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginLeft="@dimen/step_card_view_full_description_margin"
+            android:layout_marginRight="@dimen/step_card_view_full_description_margin"
+            android:layout_marginBottom="@dimen/step_card_view_full_description_margin"/>
 
     </LinearLayout>
 

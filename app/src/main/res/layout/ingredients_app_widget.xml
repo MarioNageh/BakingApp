@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:textSize="12sp"
+            android:textSize="@dimen/no_internet_text_view_size"
 
             android:text="@string/poor_internet_connection"
             android:textColor="@android:color/black"
@@ -30,7 +30,7 @@
             android:layout_gravity="center"
             android:gravity="center"
 
-            android:layout_margin="4dp"/>
+            android:layout_margin="@dimen/no_internet_text_view_margin"/>
 
         <TextView
             android:id="@+id/refreshButton"
@@ -39,13 +39,13 @@
 
             android:text="@string/refresh"
             android:textAllCaps="false"
-            android:textSize="12sp"
+            android:textSize="@dimen/no_internet_text_view_size"
             android:textColor="@android:color/black"
 
             android:layout_gravity="center"
             android:gravity="center"
 
-            android:padding="4dp"
+            android:padding="@dimen/no_internet_text_view_margin"
             android:background="@drawable/rounded_rect_with_stroke"/>
 
     </LinearLayout>

@@ -21,8 +21,8 @@ public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecycl
     
     // --- Private Variables
 
-    private Context context;
-    private RecipesAdapterListener listener;
+    private final Context context;
+    private final RecipesAdapterListener listener;
     private List<Recipe> recipeList;
 
     public RecipeRecyclerViewAdapter(Context context,

@@ -16,4 +16,33 @@
     <dimen name="item_card_view_elevation">4dp</dimen>
     <dimen name="item_image_view_height">120dp</dimen>
 
+    <!-- fragment_recipe_steps_details.xml -->
+    <dimen name="poor_internet_connection_text_view_margin">8dp</dimen>
+    <dimen name="card_view_margin">8dp</dimen>
+    <dimen name="card_view_margin_zero">0dp</dimen>
+    <dimen name="card_view_linear_layout_padding">16dp</dimen>
+    <dimen name="card_view_linear_layout_texts_margin">8dp</dimen>
+    <dimen name="card_view_line_width">80dp</dimen>
+    <dimen name="card_view_line_height">3dp</dimen>
+    <dimen name="card_view_content_text_size">16sp</dimen>
+    <dimen name="card_view_content_text_bigger_size">20sp</dimen>
+    <dimen name="previous_and_next_buttons_line_width">2dp</dimen>
+    <dimen name="previous_and_next_buttons_line_margin">2dp</dimen>
+
+    <!-- ingredients_app_widget.xml -->
+    <dimen name="no_internet_text_view_size">12sp</dimen>
+    <dimen name="no_internet_text_view_margin">4dp</dimen>
+
+    <!-- item_ingredients_widget_list.xml -->
+    <dimen name="widget_item_text_size">12sp</dimen>
+    <dimen name="widget_item_text_padding">4dp</dimen>
+
+    <!-- item_step_list.xml -->
+    <dimen name="step_card_view_linear_layout_height">30dp</dimen>
+    <dimen name="step_card_view_linear_layout_margin">8dp</dimen>
+    <dimen name="step_card_view_circle_width">30dp</dimen>
+    <dimen name="step_card_view_circle_height">30dp</dimen>
+    <dimen name="step_card_view_full_description_size">16sp</dimen>
+    <dimen name="step_card_view_full_description_margin">16dp</dimen>
+
 </resources>

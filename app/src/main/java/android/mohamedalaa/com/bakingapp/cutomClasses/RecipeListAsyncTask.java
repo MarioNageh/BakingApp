@@ -38,9 +38,9 @@ import timber.log.Timber;
  */
 public class RecipeListAsyncTask extends AsyncTask<Void , Void , RecipeListAsyncTask.IntegerAndList> {
 
-    private WeakReference<DataRepository> weakReferenceDataRepository;
-    private WeakReference<MainViewModel> weakReferenceMainViewModel;
-    @Nullable private SimpleIdlingResource idlingResource;
+    private final WeakReference<DataRepository> weakReferenceDataRepository;
+    private final WeakReference<MainViewModel> weakReferenceMainViewModel;
+    @Nullable private final SimpleIdlingResource idlingResource;
 
     private boolean forceFromInternet = false;
 
@@ -130,6 +130,7 @@ public class RecipeListAsyncTask extends AsyncTask<Void , Void , RecipeListAsync
         return integerAndList;
     }
 
+    @SuppressWarnings("RedundantThrows")
     private IntegerAndList getRecipeListFromInternet() throws Exception{
         IntegerAndList integerAndList = new IntegerAndList();
 

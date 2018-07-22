@@ -41,8 +41,8 @@ public class WidgetServiceIngredients extends RemoteViewsService {
 
 class IngredientsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private Application application;
-    private Context context;
+    private final Application application;
+    private final Context context;
     private List<Recipe> recipeList;
 
     IngredientsRemoteViewsFactory(Application application, Context context) {

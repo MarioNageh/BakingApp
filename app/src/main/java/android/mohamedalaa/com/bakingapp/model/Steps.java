@@ -6,6 +6,7 @@ import java.io.Serializable;
  * Created by Mohamed on 7/17/2018.
  *
  */
+@SuppressWarnings("SameParameterValue")
 public class Steps implements Serializable {
 
     private String shortDescription;
