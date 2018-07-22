@@ -30,7 +30,6 @@ public class ConverterListSteps {
                 JSONObject jsonObject = jsonArray.optJSONObject(i);
 
                 String jsonStringItem = jsonObject.toString();
-                Timber.v(jsonStringItem);
                 Gson gson = new Gson();
                 Steps steps = gson.fromJson(jsonStringItem, Steps.class);
 

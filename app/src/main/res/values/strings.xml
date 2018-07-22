@@ -18,5 +18,15 @@
     <string name="next_step">Next Step</string>
     <string name="recipe_step_image">Recipe Step Image</string>
     <string name="retry">Retry</string>
+    <string name="add_widget">Add widget</string>
+
+    <!-- item_ingredients_widget_list.xml -->
+    <string name="collapsed_or_expanded_recipe_ingredients">Collapsed or expanded recipe ingredients</string>
+
+    <!-- ingredients_app_widget.xml -->
+    <string name="refresh">Refresh</string>
+
+    <!-- launcher_app_widget -->
+    <string name="launcher_app_content_description">Baking App Icon</string>
 
 </resources>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+==> Notes
+
+1- we changed updatePeriodMillis to zero, as we want the widget to be updated
+only dynamically which is when
+    A- Database insert completes it's work
+    B- from it's own custom button, discussed below
+
+2- flow when updated is as follows
+    A- checks database for data, if no data found
+    B- then it will check from internet, if no internet found it will put it's own custom button
+        to make user retry when they think they have internet and this flow will be re-done.
+ -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialKeyguardLayout="@layout/ingredients_app_widget"
+    android:initialLayout="@layout/ingredients_app_widget"
+    android:minHeight="40dp"
+    android:minWidth="40dp"
+    android:previewImage="@drawable/ic_base_recipe_image"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="1800000"
+    android:widgetCategory="home_screen"/>

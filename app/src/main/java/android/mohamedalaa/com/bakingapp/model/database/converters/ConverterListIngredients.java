@@ -30,7 +30,6 @@ public class ConverterListIngredients {
                 JSONObject jsonObject = jsonArray.optJSONObject(i);
 
                 String jsonStringItem = jsonObject.toString();
-                Timber.v(jsonStringItem);
                 Gson gson = new Gson();
                 Ingredients ingredient = gson.fromJson(jsonStringItem, Ingredients.class);
 

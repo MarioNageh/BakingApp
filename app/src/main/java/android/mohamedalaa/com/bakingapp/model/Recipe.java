@@ -3,6 +3,7 @@ package android.mohamedalaa.com.bakingapp.model;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  *
  */
 @Entity(tableName = "recipeTable")
-public class Recipe {
+public class Recipe implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     private int id;

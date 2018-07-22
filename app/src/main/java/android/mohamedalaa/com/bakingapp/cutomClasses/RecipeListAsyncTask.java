@@ -103,10 +103,11 @@ public class RecipeListAsyncTask extends AsyncTask<Void , Void , RecipeListAsync
     // --- Private Helper Methods
 
     private IntegerAndList getRecipeListFromDatabaseOrInternet(DataRepository dataRepository) throws Exception{
-        // firstly Trying database, if not forced from internet.
+        // firstly Trying database, if not forced, then try from internet.
         List<Recipe> recipeList = null;
         if (! forceFromInternet){
             recipeList = dataRepository.getAllRecipeList();
+            recipeList = RecipeUtils.fillImagesInsideRecipeList(recipeList);
         }
 
         IntegerAndList integerAndList;
@@ -120,7 +121,6 @@ public class RecipeListAsyncTask extends AsyncTask<Void , Void , RecipeListAsync
                 dataRepository.insertRecipeList(recipeList);
             }
         }else {
-            Timber.v("1- Display data to user");
             // 1- Display data to user
             integerAndList = new IntegerAndList();
             integerAndList.setValueInt(MainViewModel.SHOW_RECYCLER_VIEW);
