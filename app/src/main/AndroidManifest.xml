@@ -19,8 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.RecipeStepsMasterActivity" />
-        <activity android:name=".view.RecipeStepsDetailActivity" />
+        <activity android:name=".view.RecipeStepsMasterActivity"
+            android:parentActivityName=".view.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".view.MainActivity" />
+        </activity>
+        <activity android:name=".view.RecipeStepsDetailActivity"
+            android:parentActivityName=".view.RecipeStepsMasterActivity"/>
         <!--
         Note I can add below -> android:label="" -> so user see it when he selects the widget
         but leaving it as application name is ok, it would be needed for multiple widgets.

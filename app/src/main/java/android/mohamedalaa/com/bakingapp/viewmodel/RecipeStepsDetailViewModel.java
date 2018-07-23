@@ -19,6 +19,7 @@ public class RecipeStepsDetailViewModel extends AndroidViewModel {
     public int indexChosen;
 
     public long videoPlayerPosition;
+    public boolean lastVideoStateOfPlayWhenReady = true;
 
     public RecipeStepsDetailViewModel(@NonNull Application application) {
         super(application);

@@ -269,7 +269,7 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
 
         if (simpleExoPlayer != null){
             simpleExoPlayer.seekTo(viewModel.videoPlayerPosition);
-            simpleExoPlayer.setPlayWhenReady(true);
+            simpleExoPlayer.setPlayWhenReady(viewModel.lastVideoStateOfPlayWhenReady/*true*/);
         }
     }
 
@@ -278,6 +278,8 @@ public class RecipeStepsDetailFragment extends Fragment implements Player.EventL
         super.onPause();
 
         if (simpleExoPlayer != null){
+            viewModel.lastVideoStateOfPlayWhenReady = simpleExoPlayer.getPlayWhenReady();
+            // Pause video when exit, continue playing when exit only done for music not video.
             simpleExoPlayer.setPlayWhenReady(false);
             viewModel.videoPlayerPosition = simpleExoPlayer.getCurrentPosition();
         }

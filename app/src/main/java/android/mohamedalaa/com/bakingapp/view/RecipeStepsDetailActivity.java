@@ -2,8 +2,10 @@ package android.mohamedalaa.com.bakingapp.view;
 
 import android.annotation.SuppressLint;
 import android.mohamedalaa.com.bakingapp.R;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 public class RecipeStepsDetailActivity extends AppCompatActivity {
@@ -13,6 +15,25 @@ public class RecipeStepsDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setThemeEitherFullscreenOrNotAndChangeNavigationBarAccordingly();
         setContentView(R.layout.activity_recipe_steps_detail);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home){
+            // This activity will never be called from anywhere except it's own parent
+            // so call to onBackPressed() is better.
+            onBackPressed();
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     /**

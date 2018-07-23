@@ -25,7 +25,6 @@ import timber.log.Timber;
 /**
  * Created by Mohamed on 7/23/2018.
  *
- * TODO check if it is ok to be FragmentActivity not just Activity
  */
 public class IngredientsWidgetConfigureActivity extends FragmentActivity implements
         WidgetConfAdapter.WidgetConfItemListener {
