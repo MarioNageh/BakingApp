@@ -54,7 +54,7 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             masterActivityIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_STEPS_LIST,
                     (Serializable) recipe.getSteps());
             PendingIntent pendingIntentWithExtras = PendingIntent.getActivity(
-                    context, 0, masterActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT); 
+                    context, 0, masterActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             Intent changeRecipeInWidgetIntent = new Intent(
                     context, IngredientsWidgetConfigureActivity.class);
