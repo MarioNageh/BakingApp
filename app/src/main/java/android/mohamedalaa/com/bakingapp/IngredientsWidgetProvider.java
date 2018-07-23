@@ -9,15 +9,11 @@ import android.mohamedalaa.com.bakingapp.model.Recipe;
 import android.mohamedalaa.com.bakingapp.services.IntentServiceWidgetHelper;
 import android.mohamedalaa.com.bakingapp.services.WidgetServiceIngredients;
 import android.mohamedalaa.com.bakingapp.view.RecipeStepsMasterActivity;
-import android.mohamedalaa.com.bakingapp.view.RecipeStepsMasterFragment;
 import android.os.Build;
 import android.view.View;
 import android.widget.RemoteViews;
 
-import java.io.Serializable;
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * Implementation of App Widget functionality.
@@ -43,15 +39,11 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             remoteViews.setTextViewText(R.id.headerTextView,
                     recipe.getName());
 
-            // todo
-            //appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.listView);
-
             Intent adapterIntent = new Intent(context, WidgetServiceIngredients.class);
             adapterIntent.setAction(String.valueOf(appWidgetId));
             remoteViews.setRemoteAdapter(R.id.listView, adapterIntent);
 
             Intent masterActivityIntent = new Intent(context, RecipeStepsMasterActivity.class);
-            // todo
             PendingIntent pendingIntent = PendingIntent.getActivity(
                     context, 0, masterActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -69,9 +61,6 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             remoteViews.setPendingIntentTemplate(R.id.listView, pendingIntent);
             remoteViews.setOnClickPendingIntent(R.id.settingsIconImageView,
                     changeRecipeInWidgetPendingIntent);
-
-            // todo
-            //appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.listView);
         }else {
             remoteViews.setViewVisibility(R.id.recipeNameAndIngredientsLinearLayout,
                     View.GONE);
@@ -96,8 +85,12 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // todo
-        //IntentServiceWidgetHelper.startActionUpdateIngredientsWidget(context);
+        if (appWidgetIds.length == 0
+                || (appWidgetIds.length == 1 && appWidgetIds[0] == AppWidgetManager.INVALID_APPWIDGET_ID)){
+            return;
+        }
+
+        IntentServiceWidgetHelper.startActionUpdateIngredientsWidget(context);
     }
 
     public static void performUpdateOnAllIds(Context context, AppWidgetManager appWidgetManager,
@@ -106,9 +99,12 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             return;
         }
 
+        if (appWidgetIds.length != recipeList.size()){
+            return;
+        }
+
         // There may be multiple widgets active, so update all of them
-        for (int i=0; i<=recipeList.size(); i++) {
-            Timber.v("Got Called");
+        for (int i=0; i<recipeList.size(); i++) {
             int appWidgetId = appWidgetIds[i];
             Recipe recipe = recipeList.get(i);
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.listView);

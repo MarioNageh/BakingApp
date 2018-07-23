@@ -14,8 +14,6 @@ import android.view.MenuItem;
 
 import java.util.List;
 
-import timber.log.Timber;
-
 public class RecipeStepsMasterActivity extends AppCompatActivity {
 
     private static final String FRAGMENT_MANAGER_TAG_RECIPE_STEPS_DETAIL_FRAGMENT
@@ -46,11 +44,6 @@ public class RecipeStepsMasterActivity extends AppCompatActivity {
         if (isTablet){
             tabletSetups(savedInstanceState == null);
         }
-    }
-
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
     }
 
     @Override

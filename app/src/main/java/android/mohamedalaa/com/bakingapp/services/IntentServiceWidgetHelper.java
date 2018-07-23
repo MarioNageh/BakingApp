@@ -31,6 +31,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import timber.log.Timber;
 
 /**
  * Created by Mohamed on 7/21/2018.
@@ -107,6 +108,10 @@ public class IntentServiceWidgetHelper extends IntentService {
         }else {
             List<Recipe> associatedWithIdsRecipeList = new ArrayList<>();
             for (int appWidgetId : appWidgetIds){
+                Timber.v("appWidgetId = " + appWidgetId);
+                if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID){
+                    continue;
+                }
                 int indexChosen = SharedPrefUtils.getWidgetChosenRecipeIndex(
                         appWidgetId, getApplicationContext());
                 associatedWithIdsRecipeList.add(recipeList.get(indexChosen));

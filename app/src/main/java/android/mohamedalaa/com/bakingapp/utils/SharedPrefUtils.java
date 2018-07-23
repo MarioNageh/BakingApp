@@ -1,5 +1,6 @@
 package android.mohamedalaa.com.bakingapp.utils;
 
+import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 
@@ -58,7 +59,7 @@ public class SharedPrefUtils {
         static final String SH_PREF_KEY_CHOSEN_RECIPE_INDEX = "SH_PREF_KEY_CHOSEN_RECIPE_INDEX";
 
         /** File Default Values */
-        static final int SH_PREF_VALUE_CHOSEN_RECIPE_INDEX = -1;
+        static final int SH_PREF_VALUE_CHOSEN_RECIPE_INDEX = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     }
 
