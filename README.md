@@ -19,22 +19,17 @@ Created as part of Udacity [Android Developer Nanodegree Program](https://eg.uda
 
 ## Screenshots
 ### Phone ( Portrait )
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_main.png" height="500"/>
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_master.png" height="500"/>
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_detail.png" height="500"/>
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_widget_list_working.png" height="500"/>
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_widget_list_not_working.png" height="500"/>
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_widget_single.png" height="500"/>
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_widget_main_no_connection.png" height="500"/>
+<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_main.png" height="500" width="300"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_master.png" height="500" width="300"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_detail.png" height="500" width="300"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_portrait_widget_main_no_connection.png" height="500" width="300"/>
+
+<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/having_2_widgets.png" height="500" width="300"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/widget_ingredients_list_configuration_activity_no_internet_connection.png" height="500" width="300"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/widget_ingredients_list_configuration_activity_with_data_not_selected.png" height="500" width="300"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/widget_ingredients_list_configuration_activity_with_data_selected_green_circle.png" height="500" width="300"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/widget_ingredients_list_on_screen.png" height="500" width="300"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/widget_launcher_on_screen.png" height="500" width="300"/>
 
 ### Phone ( Landscape )
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_landscape_detail_1.png" width="500"/>
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_landscape_detail_2.png" width="500"/>
+<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_landscape_detail_1.png" width="500"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/phone_landscape_detail_2.png" width="500"/>
 
 ### Tablet ( Landscape )
 <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/tablet_landscape_main.png" width="800"/>
 <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/tablet_landscape_master_detail.png" width="800"/>
-<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/tablet_landscape_widget_list_functional.png" width="800"/>
+<img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/tablet_landscape_widget_list_functional.png" width="800"/> <img src="https://github.com/MohamedAlaaEldin636/BakingApp/blob/master/forReadMeFiles/tablet_both_widget_on_screen.png" width="800"/>
 
 # License
 
@@ -46,7 +41,8 @@ Copyright 2018 Mohamed Alaa
 Licensed under the Apache License, Version 2.0 (the "License"); 
 you may not use this file except in compliance with the License. 
 
-You may obtain a copy of the License at(http://www.apache.org/licenses/LICENSE-2.0)
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, 
 software distributed under the License is distributed on an "AS IS" BASIS, 
