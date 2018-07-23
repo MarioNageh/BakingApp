@@ -25,6 +25,7 @@ import com.firebase.jobdispatcher.Job;
 import com.firebase.jobdispatcher.Trigger;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -100,13 +101,19 @@ public class IntentServiceWidgetHelper extends IntentService {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
                 new ComponentName(this, IngredientsWidgetProvider.class));
-        int indexChosen = SharedPrefUtils.getWidgetChosenRecipeIndex(getApplicationContext());
-        if (recipeList == null || indexChosen < 0){
+        if (recipeList == null || recipeList.size() == 0){
             IngredientsWidgetProvider.performUpdateOnAllIds(
                     this, appWidgetManager, appWidgetIds, null);
         }else {
+            List<Recipe> associatedWithIdsRecipeList = new ArrayList<>();
+            for (int appWidgetId : appWidgetIds){
+                int indexChosen = SharedPrefUtils.getWidgetChosenRecipeIndex(
+                        appWidgetId, getApplicationContext());
+                associatedWithIdsRecipeList.add(recipeList.get(indexChosen));
+            }
+
             IngredientsWidgetProvider.performUpdateOnAllIds(
-                    this, appWidgetManager, appWidgetIds, recipeList.get(indexChosen));
+                    this, appWidgetManager, appWidgetIds, associatedWithIdsRecipeList);
         }
     }
 

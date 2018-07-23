@@ -8,7 +8,6 @@ import android.mohamedalaa.com.bakingapp.DataRepository;
 import android.mohamedalaa.com.bakingapp.R;
 import android.mohamedalaa.com.bakingapp.model.Ingredients;
 import android.mohamedalaa.com.bakingapp.model.Recipe;
-import android.mohamedalaa.com.bakingapp.model.Steps;
 import android.mohamedalaa.com.bakingapp.model.retrofit.RetrofitApiClient;
 import android.mohamedalaa.com.bakingapp.model.retrofit.RetrofitApiInterface;
 import android.mohamedalaa.com.bakingapp.utils.RecipeUtils;
@@ -24,6 +23,7 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import timber.log.Timber;
 
 /**
  * Created by Mohamed on 7/22/2018.
@@ -33,9 +33,21 @@ public class WidgetServiceIngredients extends RemoteViewsService {
     
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
+        Timber.v("onGetViewFactory(Intent intent) -> Is Called");
+
+        String stringOfAppWidgetId = intent.getAction();
+        int appWidgetId = -1;
+        try {
+            appWidgetId = Integer.parseInt(stringOfAppWidgetId);
+        }catch (Exception e){
+            // In case of string cannot be int
+            Timber.v(e.getMessage());
+        }
+
         return new IngredientsRemoteViewsFactory(
                 getApplication(),
-                this.getApplicationContext());
+                this.getApplicationContext(),
+                appWidgetId);
     }
 
 }
@@ -44,11 +56,13 @@ class IngredientsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     private final Application application;
     private final Context context;
+    private final int appWidgetId;
     private Recipe recipe;
 
-    IngredientsRemoteViewsFactory(Application application, Context context) {
+    IngredientsRemoteViewsFactory(Application application, Context context, int appWidgetId) {
         this.application = application;
         this.context = context;
+        this.appWidgetId = appWidgetId;
     }
 
     @Override
@@ -80,7 +94,7 @@ class IngredientsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
         }
 
         if (recipeList != null && recipeList.size() > 0){
-            int indexChosen = SharedPrefUtils.getWidgetChosenRecipeIndex(context);
+            int indexChosen = SharedPrefUtils.getWidgetChosenRecipeIndex(appWidgetId, context);
             this.recipe = recipeList.get(indexChosen);
         }else {
             this.recipe = null;
@@ -114,6 +128,10 @@ class IngredientsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
 
         // perform click to launch that specific recipe ingredient
         Intent fillInIntent = new Intent();
+        fillInIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_INGREDIENTS_LIST,
+                (Serializable) recipe.getIngredients());
+        fillInIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_STEPS_LIST,
+                (Serializable) recipe.getSteps());
         remoteViews.setOnClickFillInIntent(R.id.ingredientsTextView,
                 fillInIntent);
 

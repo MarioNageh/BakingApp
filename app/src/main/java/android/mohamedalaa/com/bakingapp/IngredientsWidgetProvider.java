@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.mohamedalaa.com.bakingapp.model.Ingredients;
 import android.mohamedalaa.com.bakingapp.model.Recipe;
 import android.mohamedalaa.com.bakingapp.services.IntentServiceWidgetHelper;
 import android.mohamedalaa.com.bakingapp.services.WidgetServiceIngredients;
@@ -17,6 +16,8 @@ import android.widget.RemoteViews;
 
 import java.io.Serializable;
 import java.util.List;
+
+import timber.log.Timber;
 
 /**
  * Implementation of App Widget functionality.
@@ -42,14 +43,15 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             remoteViews.setTextViewText(R.id.headerTextView,
                     recipe.getName());
 
+            // todo
+            //appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.listView);
+
             Intent adapterIntent = new Intent(context, WidgetServiceIngredients.class);
+            adapterIntent.setAction(String.valueOf(appWidgetId));
             remoteViews.setRemoteAdapter(R.id.listView, adapterIntent);
 
             Intent masterActivityIntent = new Intent(context, RecipeStepsMasterActivity.class);
-            masterActivityIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_INGREDIENTS_LIST,
-                    (Serializable) recipe.getIngredients());
-            masterActivityIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_STEPS_LIST,
-                    (Serializable) recipe.getSteps());
+            // todo
             PendingIntent pendingIntent = PendingIntent.getActivity(
                     context, 0, masterActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -67,6 +69,9 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             remoteViews.setPendingIntentTemplate(R.id.listView, pendingIntent);
             remoteViews.setOnClickPendingIntent(R.id.settingsIconImageView,
                     changeRecipeInWidgetPendingIntent);
+
+            // todo
+            //appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.listView);
         }else {
             remoteViews.setViewVisibility(R.id.recipeNameAndIngredientsLinearLayout,
                     View.GONE);
@@ -91,16 +96,29 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // updates are done dynamically, by calling the static methods
-        // so no need to make period update.
+        // todo
+        //IntentServiceWidgetHelper.startActionUpdateIngredientsWidget(context);
     }
 
     public static void performUpdateOnAllIds(Context context, AppWidgetManager appWidgetManager,
-                                             int[] appWidgetIds, Recipe recipe){
+                                             int[] appWidgetIds, List<Recipe> recipeList){
+        if (recipeList == null){
+            return;
+        }
+
         // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
+        for (int i=0; i<=recipeList.size(); i++) {
+            Timber.v("Got Called");
+            int appWidgetId = appWidgetIds[i];
+            Recipe recipe = recipeList.get(i);
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.listView);
             updateAppWidget(context, appWidgetManager, appWidgetId, recipe);
         }
+    }
+
+    public static void performUpdateOnOneId(Context context, AppWidgetManager appWidgetManager,
+                                            int appWidgetId, Recipe recipe){
+        updateAppWidget(context, appWidgetManager, appWidgetId, recipe);
     }
 
     @Override
@@ -111,30 +129,6 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
-    }
-
-    // --- Private helper methods
-
-    private static String getIngredientsListAsString(List<Ingredients> ingredientsList){
-        StringBuilder builder = new StringBuilder();
-        for (int i=0; i<ingredientsList.size(); i++){
-            Ingredients ingredient = ingredientsList.get(i);
-            builder.append(String.valueOf((i + 1)));
-            builder.append(". ");
-            builder.append(ingredient.getIngredient());
-            builder.append(" (");
-            builder.append(ingredient.getQuantity());
-            builder.append("  ");
-            builder.append(ingredient.getmeasure());
-            builder.append(")");
-
-            // make new line only if it is not the last ingredient.
-            if (i != ingredientsList.size() - 1){
-                builder.append("\n");
-            }
-        }
-
-        return builder.toString();
     }
 
 }

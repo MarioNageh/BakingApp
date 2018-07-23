@@ -2,7 +2,6 @@ package android.mohamedalaa.com.bakingapp;
 
 import android.appwidget.AppWidgetManager;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -19,8 +18,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import java.util.List;
-
-import timber.log.Timber;
 
 /**
  * Created by Mohamed on 7/23/2018.
@@ -86,13 +83,9 @@ public class IngredientsWidgetConfigureActivity extends FragmentActivity impleme
 
     private void observeViewModelObservableVariables() {
         viewModel.recipesListLiveData.observe(this, recipeList -> {
-            Timber.v("PREPARE");
-
             if (recipeList == null){
-                Timber.v("1");
                 binding.loadingFrameLayout.setVisibility(View.VISIBLE);
             }else if (recipeList.size() == 0){
-                Timber.v("2");
                 /*
                 VIP NOTE -> we get data from fixed API that has list and cannot be empty
                 that's why i handle empty list as there is no internet connection
@@ -106,7 +99,6 @@ public class IngredientsWidgetConfigureActivity extends FragmentActivity impleme
                 binding.recyclerView.setVisibility(View.GONE);
                 // no internet connection view is always visible.
             }else {
-                Timber.v("3");
                 binding.loadingFrameLayout.setVisibility(View.GONE);
                 binding.recyclerView.setVisibility(View.VISIBLE);
 
@@ -148,18 +140,16 @@ public class IngredientsWidgetConfigureActivity extends FragmentActivity impleme
             int indexChosen = viewModel.indexChosen;
 
             SharedPrefUtils.setWidgetChosenRecipeIndex(
-                    context, indexChosen);
+                    context, appWidgetId, indexChosen);
 
             // Push widget update to surface with newly set prefix
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
-                    new ComponentName(this, IngredientsWidgetProvider.class));
             List<Recipe> recipeList = viewModel.recipesListLiveData.getValue();
-            if (recipeList != null){
-                IngredientsWidgetProvider.performUpdateOnAllIds(
+            if (recipeList != null && recipeList.size() > 0){
+                IngredientsWidgetProvider.performUpdateOnOneId(
                         context,
                         appWidgetManager,
-                        appWidgetIds,
+                        appWidgetId,
                         recipeList.get(indexChosen));
                 // Make sure we pass back the original appWidgetId
                 Intent resultValue = new Intent();

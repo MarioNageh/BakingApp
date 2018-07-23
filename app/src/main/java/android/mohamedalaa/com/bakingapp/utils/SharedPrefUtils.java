@@ -9,22 +9,36 @@ import android.content.SharedPreferences;
  */
 public class SharedPrefUtils {
 
-    synchronized public static void setWidgetChosenRecipeIndex(Context context, int index){
+    /**
+     * Doing below approach to ensure we have the same widget with different lists,
+     *      not all widget with the same recipe.
+     *
+     * Same sharedPref key generation methodology is done in corresponding get method.
+     */
+    synchronized public static void setWidgetChosenRecipeIndex(Context context,
+                                                               int appWidgetId,
+                                                               int index){
         SharedPreferences sharedPref = context.getSharedPreferences(
                 SharedPrefConstants.SH_PREF_FILE_WIDGET_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        editor.putInt(SharedPrefConstants.SH_PREF_KEY_CHOSEN_RECIPE_INDEX,
+        String keySpecificToAppWidgetId
+                = SharedPrefConstants.SH_PREF_KEY_CHOSEN_RECIPE_INDEX + "_" + appWidgetId;
+
+        editor.putInt(keySpecificToAppWidgetId,
                 index);
 
         editor.apply();
     }
 
-    synchronized public static int getWidgetChosenRecipeIndex(Context context){
+    synchronized public static int getWidgetChosenRecipeIndex(int appWidgetId, Context context){
         SharedPreferences sharedPref = context.getSharedPreferences(
                 SharedPrefConstants.SH_PREF_FILE_WIDGET_NAME, Context.MODE_PRIVATE);
 
-        return sharedPref.getInt(SharedPrefConstants.SH_PREF_KEY_CHOSEN_RECIPE_INDEX,
+        String keySpecificToAppWidgetId
+                = SharedPrefConstants.SH_PREF_KEY_CHOSEN_RECIPE_INDEX + "_" + appWidgetId;
+
+        return sharedPref.getInt(keySpecificToAppWidgetId,
                 SharedPrefConstants.SH_PREF_VALUE_CHOSEN_RECIPE_INDEX);
     }
 
