@@ -151,6 +151,7 @@ public class IngredientsWidgetConfigureActivity extends FragmentActivity impleme
                         appWidgetManager,
                         appWidgetId,
                         recipeList.get(indexChosen));
+                appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.listView);
                 // Make sure we pass back the original appWidgetId
                 Intent resultValue = new Intent();
                 resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);

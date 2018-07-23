@@ -9,10 +9,12 @@ import android.mohamedalaa.com.bakingapp.model.Recipe;
 import android.mohamedalaa.com.bakingapp.services.IntentServiceWidgetHelper;
 import android.mohamedalaa.com.bakingapp.services.WidgetServiceIngredients;
 import android.mohamedalaa.com.bakingapp.view.RecipeStepsMasterActivity;
+import android.mohamedalaa.com.bakingapp.view.RecipeStepsMasterFragment;
 import android.os.Build;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -47,6 +49,13 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
             PendingIntent pendingIntent = PendingIntent.getActivity(
                     context, 0, masterActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
+            masterActivityIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_INGREDIENTS_LIST,
+                    (Serializable) recipe.getIngredients());
+            masterActivityIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_STEPS_LIST,
+                    (Serializable) recipe.getSteps());
+            PendingIntent pendingIntentWithExtras = PendingIntent.getActivity(
+                    context, 0, masterActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
             Intent changeRecipeInWidgetIntent = new Intent(
                     context, IngredientsWidgetConfigureActivity.class);
             changeRecipeInWidgetIntent.putExtra(
@@ -57,7 +66,7 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
                     changeRecipeInWidgetIntent,
                     PendingIntent.FLAG_UPDATE_CURRENT);
 
-            remoteViews.setOnClickPendingIntent(R.id.headerTextView, pendingIntent);
+            remoteViews.setOnClickPendingIntent(R.id.headerTextView, pendingIntentWithExtras);
             remoteViews.setPendingIntentTemplate(R.id.listView, pendingIntent);
             remoteViews.setOnClickPendingIntent(R.id.settingsIconImageView,
                     changeRecipeInWidgetPendingIntent);
