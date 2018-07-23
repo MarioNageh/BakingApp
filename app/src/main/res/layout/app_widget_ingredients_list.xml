@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- no internet connection view -->
+
+    <LinearLayout
+        android:id="@+id/poorInternetConnectionLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:orientation="vertical"
+
+        android:gravity="center"
+
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:textSize="@dimen/no_internet_text_view_size"
+
+            android:text="@string/poor_internet_connection"
+            android:textColor="@android:color/black"
+
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            android:layout_margin="@dimen/no_internet_text_view_margin"/>
+
+        <TextView
+            android:id="@+id/refreshButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/refresh"
+            android:textAllCaps="false"
+            android:textSize="@dimen/no_internet_text_view_size"
+            android:textColor="@android:color/black"
+
+            android:layout_gravity="center"
+            android:gravity="center"
+
+            android:padding="@dimen/no_internet_text_view_margin"
+            android:background="@drawable/rounded_rect_with_stroke"/>
+
+    </LinearLayout>
+
+    <!-- Recipe name && it's ingredients -->
+
+    <LinearLayout
+        android:id="@+id/recipeNameAndIngredientsLinearLayout"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Ignore all is used as i prefer text view and image view
+         than textView with drawableRight -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="all">
+
+            <TextView
+                android:id="@+id/headerTextView"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+
+                tools:text="Nutella Pie ( Ingredients )"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+
+                android:layout_gravity="center"
+                android:gravity="center"
+
+                android:padding="@dimen/widget_item_text_padding"
+
+                android:maxLines="1"
+                android:ellipsize="end"
+
+                android:background="@color/colorPrimaryDark"/>
+
+            <ImageView
+                android:id="@+id/settingsIconImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:src="@drawable/ic_settings"
+
+                android:background="@color/colorPrimaryLight"
+
+                android:contentDescription="@string/change_recipe"/>
+
+        </LinearLayout>
+
+        <!--
+        Text should be scrollable, and ScrollView not supported
+        in RemoteViews.
+        -->
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:padding="@dimen/widget_item_text_padding"
+
+            android:background="@android:color/white"/>
+
+    </LinearLayout>
+
+</FrameLayout>

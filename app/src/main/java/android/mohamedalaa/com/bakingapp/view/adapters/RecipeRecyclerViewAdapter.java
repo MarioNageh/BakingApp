@@ -16,6 +16,10 @@ import java.util.List;
 /**
  * Created by Mohamed on 7/18/2018.
  *
+ * VIP NOTE
+ * API End Point is fixed and doesn't have IMAGES for the recipes
+ * so that's why i provided fixed images in drawable res.
+ *
  */
 public class RecipeRecyclerViewAdapter extends RecyclerView.Adapter<RecipeRecyclerViewAdapter.RecipeViewHolder> {
     

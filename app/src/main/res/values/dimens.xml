@@ -29,12 +29,10 @@
     <dimen name="previous_and_next_buttons_line_width">2dp</dimen>
     <dimen name="previous_and_next_buttons_line_margin">2dp</dimen>
 
-    <!-- ingredients_app_widget.xml -->
+    <!-- app_widget_ingredients_list.xml -->
     <dimen name="no_internet_text_view_size">12sp</dimen>
     <dimen name="no_internet_text_view_margin">4dp</dimen>
-
-    <!-- item_ingredients_widget_list.xml -->
-    <dimen name="widget_item_text_size">12sp</dimen>
+    <dimen name="widget_item_text_size">14sp</dimen>
     <dimen name="widget_item_text_padding">4dp</dimen>
 
     <!-- item_step_list.xml -->
@@ -44,5 +42,16 @@
     <dimen name="step_card_view_circle_height">30dp</dimen>
     <dimen name="step_card_view_full_description_size">16sp</dimen>
     <dimen name="step_card_view_full_description_margin">16dp</dimen>
+
+    <!-- activity_ingredients_widget_configure -->
+    <dimen name="widget_configuration_frame_layout_padding">8dp</dimen>
+    <dimen name="widget_configuration_line_margin">8dp</dimen>
+    <dimen name="widget_configuration_line_height">2dp</dimen>
+    <dimen name="widget_configuration_title_long_padding">16dp</dimen>
+
+    <!-- item_widget_configuration -->
+    <dimen name="widget_conf_card_view_total_height">170dp</dimen>
+    <dimen name="widget_conf_image_view_height">50dp</dimen>
+    <dimen name="widget_conf_image_view_width">50dp</dimen>
 
 </resources>

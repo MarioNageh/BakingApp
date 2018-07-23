@@ -12,6 +12,7 @@ import android.mohamedalaa.com.bakingapp.model.Steps;
 import android.mohamedalaa.com.bakingapp.model.retrofit.RetrofitApiClient;
 import android.mohamedalaa.com.bakingapp.model.retrofit.RetrofitApiInterface;
 import android.mohamedalaa.com.bakingapp.utils.RecipeUtils;
+import android.mohamedalaa.com.bakingapp.utils.SharedPrefUtils;
 import android.mohamedalaa.com.bakingapp.view.RecipeStepsMasterFragment;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -43,7 +44,7 @@ class IngredientsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
 
     private final Application application;
     private final Context context;
-    private List<Recipe> recipeList;
+    private Recipe recipe;
 
     IngredientsRemoteViewsFactory(Application application, Context context) {
         this.application = application;
@@ -78,46 +79,43 @@ class IngredientsRemoteViewsFactory implements RemoteViewsService.RemoteViewsFac
             }
         }
 
-        this.recipeList = recipeList;
+        if (recipeList != null && recipeList.size() > 0){
+            int indexChosen = SharedPrefUtils.getWidgetChosenRecipeIndex(context);
+            this.recipe = recipeList.get(indexChosen);
+        }else {
+            this.recipe = null;
+        }
     }
 
     @Override
     public void onDestroy() {
-        recipeList = null;
+        recipe = null;
     }
 
     @Override
     public int getCount() {
-        return recipeList == null ? 0 : recipeList.size();
+        return recipe == null ? 0 : 1;
     }
 
     @Override
     public RemoteViews getViewAt(int position) {
         // setup data in remoteViews
-        Recipe recipe = recipeList.get(position);
         List<Ingredients> ingredientsList = recipe.getIngredients();
-        List<Steps> stepsList = recipe.getSteps();
 
-        String recipeName = recipe.getName();
         String ingredientsListAsString = getIngredientsListAsString(ingredientsList);
 
         // Setup RemoteViews
         RemoteViews remoteViews = new RemoteViews(
-                context.getPackageName(), R.layout.item_ingredients_widget_list);
+                context.getPackageName(), R.layout.app_wiget_item);
 
-        // Setting header text
-        remoteViews.setTextViewText(R.id.headerTextView, recipeName);
         // Setting ingredients text
-        remoteViews.setTextViewText(R.id.ingredientsTextView, ingredientsListAsString);
+        remoteViews.setTextViewText(R.id.ingredientsTextView,
+                ingredientsListAsString);
 
         // perform click to launch that specific recipe ingredient
         Intent fillInIntent = new Intent();
-        fillInIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_INGREDIENTS_LIST,
-                (Serializable) ingredientsList);
-        fillInIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_STEPS_LIST,
-                (Serializable) stepsList);
-        remoteViews.setOnClickFillInIntent(R.id.headerTextView, fillInIntent);
-        remoteViews.setOnClickFillInIntent(R.id.ingredientsTextView, fillInIntent);
+        remoteViews.setOnClickFillInIntent(R.id.ingredientsTextView,
+                fillInIntent);
 
         return remoteViews;
     }

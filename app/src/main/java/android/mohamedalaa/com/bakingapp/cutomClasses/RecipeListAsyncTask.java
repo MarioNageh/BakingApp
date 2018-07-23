@@ -35,7 +35,12 @@ import timber.log.Timber;
  * if it wasn't fixed database the flow would change, we should 've download from internet
  * whether there is data in database or not, then update database ONLY if new data came from
  * internet.
+ *
+ * VIP NOTE
+ * API End Point is fixed and doesn't have IMAGES for the recipes
+ * so that's why i provided fixed images in drawable res.
  */
+@SuppressWarnings("ConstantConditions")
 public class RecipeListAsyncTask extends AsyncTask<Void , Void , RecipeListAsyncTask.IntegerAndList> {
 
     private final WeakReference<DataRepository> weakReferenceDataRepository;

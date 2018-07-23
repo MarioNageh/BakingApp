@@ -2,9 +2,8 @@
 <!--
 ==> Notes
 
-1- we changed updatePeriodMillis to zero, as we want the widget to be updated
-only dynamically which is when
-    A- Database insert completes it's work
+1- the widget should be updated in the following ways
+    A- whenever user creates or changes it
     B- from it's own custom button, discussed below
 
 2- flow when updated is as follows
@@ -12,10 +11,12 @@ only dynamically which is when
     B- then it will check from internet, if no internet found it will put it's own custom button
         to make user retry when they think they have internet and this flow will be re-done.
  -->
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:initialLayout="@layout/ingredients_app_widget"
-    android:minHeight="40dp"
-    android:minWidth="40dp"
-    android:previewImage="@drawable/ic_base_recipe_image"
+<appwidget-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/app_widget_ingredients_list"
+    android:minHeight="110dp"
+    android:minWidth="110dp"
+    android:previewImage="@drawable/ic_ingredients"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="1800000"/>
+    android:updatePeriodMillis="0"
+    android:configure="android.mohamedalaa.com.bakingapp.IngredientsWidgetConfigureActivity"/>

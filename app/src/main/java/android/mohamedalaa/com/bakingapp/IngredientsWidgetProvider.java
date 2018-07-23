@@ -5,16 +5,17 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.mohamedalaa.com.bakingapp.model.Ingredients;
 import android.mohamedalaa.com.bakingapp.model.Recipe;
 import android.mohamedalaa.com.bakingapp.services.IntentServiceWidgetHelper;
 import android.mohamedalaa.com.bakingapp.services.WidgetServiceIngredients;
-import android.mohamedalaa.com.bakingapp.view.MainActivity;
 import android.mohamedalaa.com.bakingapp.view.RecipeStepsMasterActivity;
+import android.mohamedalaa.com.bakingapp.view.RecipeStepsMasterFragment;
 import android.os.Build;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -32,18 +33,56 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
      *      in System App drawer (Quick Access).
      */
     private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                        int appWidgetId, List<Recipe> recipeList) {
-        // Get current width to decide either
-        //      App launcher widget OR ingredients list
-        Bundle options = appWidgetManager.getAppWidgetOptions(appWidgetId);
-        int width = options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH);
-        RemoteViews remoteViews;
-        if (width < 110) {
-            // Means less than 2 cells, got from official documentation
-            // link -> https://developer.android.com/guide/practices/ui_guidelines/widget_design
-            remoteViews = getLauncherRemoteView(context);
-        } else {
-            remoteViews = getIngredientsListRemoteView(context, recipeList);
+                                        int appWidgetId, Recipe recipe) {
+        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
+                R.layout.app_widget_ingredients_list);
+        if (recipe != null){
+            remoteViews.setViewVisibility(R.id.recipeNameAndIngredientsLinearLayout,
+                    View.VISIBLE);
+            remoteViews.setTextViewText(R.id.headerTextView,
+                    recipe.getName());
+
+            Intent adapterIntent = new Intent(context, WidgetServiceIngredients.class);
+            remoteViews.setRemoteAdapter(R.id.listView, adapterIntent);
+
+            Intent masterActivityIntent = new Intent(context, RecipeStepsMasterActivity.class);
+            masterActivityIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_INGREDIENTS_LIST,
+                    (Serializable) recipe.getIngredients());
+            masterActivityIntent.putExtra(RecipeStepsMasterFragment.INTENT_KEY_STEPS_LIST,
+                    (Serializable) recipe.getSteps());
+            PendingIntent pendingIntent = PendingIntent.getActivity(
+                    context, 0, masterActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            Intent changeRecipeInWidgetIntent = new Intent(
+                    context, IngredientsWidgetConfigureActivity.class);
+            changeRecipeInWidgetIntent.putExtra(
+                    AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+            PendingIntent changeRecipeInWidgetPendingIntent = PendingIntent.getActivity(
+                    context,
+                    0,
+                    changeRecipeInWidgetIntent,
+                    PendingIntent.FLAG_UPDATE_CURRENT);
+
+            remoteViews.setOnClickPendingIntent(R.id.headerTextView, pendingIntent);
+            remoteViews.setPendingIntentTemplate(R.id.listView, pendingIntent);
+            remoteViews.setOnClickPendingIntent(R.id.settingsIconImageView,
+                    changeRecipeInWidgetPendingIntent);
+        }else {
+            remoteViews.setViewVisibility(R.id.recipeNameAndIngredientsLinearLayout,
+                    View.GONE);
+
+            Intent intent = IntentServiceWidgetHelper
+                    .getIntentOfStartActionUpdateIngredientsWidget(context);
+            PendingIntent pendingIntent;
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
+                pendingIntent = PendingIntent.getService(
+                        context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            }else {
+                pendingIntent = PendingIntent.getBroadcast(
+                        context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            }
+            remoteViews.setOnClickPendingIntent(R.id.refreshButton,
+                    pendingIntent);
         }
 
         // Instruct the widget manager to update the widget
@@ -52,22 +91,16 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        IntentServiceWidgetHelper.startActionUpdateIngredientsWidget(context);
+        // updates are done dynamically, by calling the static methods
+        // so no need to make period update.
     }
 
-    public static void performUpdate(Context context, AppWidgetManager appWidgetManager,
-                                     int[] appWidgetIds, List<Recipe> recipeList){
+    public static void performUpdateOnAllIds(Context context, AppWidgetManager appWidgetManager,
+                                             int[] appWidgetIds, Recipe recipe){
         // There may be multiple widgets active, so update all of them
         for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId, recipeList);
+            updateAppWidget(context, appWidgetManager, appWidgetId, recipe);
         }
-    }
-
-    @Override
-    public void onAppWidgetOptionsChanged(Context context, AppWidgetManager appWidgetManager,
-                                          int appWidgetId, Bundle newOptions) {
-        IntentServiceWidgetHelper.startActionUpdateIngredientsWidget(context);
-        super.onAppWidgetOptionsChanged(context, appWidgetManager, appWidgetId, newOptions);
     }
 
     @Override
@@ -80,55 +113,28 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    // ---- Private Methods
+    // --- Private helper methods
 
-    private static RemoteViews getLauncherRemoteView(Context context){
-        RemoteViews remoteViews = new RemoteViews(
-                context.getPackageName(), R.layout.launcher_app_widget);
-        Intent mainActivityIntent = new Intent(context, MainActivity.class);
-        PendingIntent mainActivityPendingIntent = PendingIntent.getActivity(
-                context, 0, mainActivityIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        remoteViews.setOnClickPendingIntent(R.id.imageView, mainActivityPendingIntent);
+    private static String getIngredientsListAsString(List<Ingredients> ingredientsList){
+        StringBuilder builder = new StringBuilder();
+        for (int i=0; i<ingredientsList.size(); i++){
+            Ingredients ingredient = ingredientsList.get(i);
+            builder.append(String.valueOf((i + 1)));
+            builder.append(". ");
+            builder.append(ingredient.getIngredient());
+            builder.append(" (");
+            builder.append(ingredient.getQuantity());
+            builder.append("  ");
+            builder.append(ingredient.getmeasure());
+            builder.append(")");
 
-        return remoteViews;
-    }
-
-    private static RemoteViews getIngredientsListRemoteView(Context context,
-                                                            List<Recipe> recipeList){
-        RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
-                R.layout.ingredients_app_widget);
-
-        if (recipeList != null && recipeList.size() > 0){
-            remoteViews.setViewVisibility(R.id.listView, View.VISIBLE);
-
-            // Set list view adapter
-            Intent intent = new Intent(context, WidgetServiceIngredients.class);
-            remoteViews.setRemoteAdapter(R.id.listView, intent);
-
-            // Set list view pending intent template
-            Intent appIntent = new Intent(context, RecipeStepsMasterActivity.class);
-            PendingIntent appPendingIntent = PendingIntent.getActivity(
-                    context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            remoteViews.setPendingIntentTemplate(R.id.listView, appPendingIntent);
-        }else {
-            // occurs if application when created there was no internet connection, so no database
-            // so no data at all so we set this as a fallback view ( poor internet connection )
-            remoteViews.setViewVisibility(R.id.listView, View.GONE);
-
-            Intent intent = IntentServiceWidgetHelper
-                    .getIntentOfStartActionUpdateIngredientsWidget(context);
-            PendingIntent pendingIntent;
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O){
-                pendingIntent = PendingIntent.getService(
-                        context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-            }else {
-                pendingIntent = PendingIntent.getBroadcast(
-                        context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            // make new line only if it is not the last ingredient.
+            if (i != ingredientsList.size() - 1){
+                builder.append("\n");
             }
-            remoteViews.setOnClickPendingIntent(R.id.refreshButton, pendingIntent);
         }
 
-        return remoteViews;
+        return builder.toString();
     }
 
 }

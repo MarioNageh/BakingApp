@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:background="@android:color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/black"
+            android:text="@string/widget_configuration_title_long"
+
+            android:gravity="center"
+
+            android:padding="@dimen/widget_configuration_title_long_padding"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/widget_configuration_line_height"
+            android:background="@android:color/black"
+
+            android:layout_marginLeft="@dimen/widget_configuration_line_margin"
+            android:layout_marginRight="@dimen/widget_configuration_line_margin"/>
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+
+            android:padding="@dimen/widget_configuration_frame_layout_padding">
+
+            <LinearLayout
+                android:id="@+id/poorInternetConnectionLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:orientation="vertical"
+
+                android:gravity="center"
+
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+
+                    android:text="@string/poor_internet_connection"
+                    android:textColor="@android:color/black"
+
+                    android:layout_gravity="center"
+                    android:gravity="center"
+
+                    android:layout_margin="@dimen/no_internet_text_view_margin"/>
+
+                <TextView
+                    android:id="@+id/refreshButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/refresh"
+                    android:textAllCaps="false"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="@android:color/black"
+
+                    android:layout_gravity="center"
+                    android:gravity="center"
+
+                    android:padding="@dimen/no_internet_text_view_margin"
+                    android:background="@drawable/rounded_rect_with_stroke"/>
+
+            </LinearLayout>
+
+            <!-- NOTE
+             1- Since API end point is fixed value and never empty
+             we would handle empty list by not even show the option
+             to add widget list unless we are sure there is a list
+             or to tell via toast list is empty go and add some,
+             but in this case we only handle internet connection situation.
+
+             2- we put background white same as root so when we handle
+             no internet connection we just change the below visibility
+             without doing anything to the above one.
+             ( more explanation )
+             if below is visible it is impossible for user to see the
+             above view and when below is gone user can interact with above.
+             -->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:background="@android:color/white"/>
+
+            <FrameLayout
+                android:id="@+id/loadingFrameLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                android:background="@android:color/white">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_gravity="center"/>
+
+            </FrameLayout>
+
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:background="@color/colorPrimary">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+
+                android:background="@color/colorPrimary"
+
+                android:text="@string/cancel"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
+
+            <View
+                android:layout_width="@dimen/previous_and_next_buttons_line_width"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+
+                android:layout_marginTop="@dimen/previous_and_next_buttons_line_margin"
+                android:layout_marginBottom="@dimen/previous_and_next_buttons_line_margin"/>
+
+            <Button
+                android:id="@+id/okButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+
+                android:background="@color/colorPrimary"
+
+                android:text="@string/ok"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

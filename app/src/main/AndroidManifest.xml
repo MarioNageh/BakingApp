@@ -21,12 +21,13 @@
         </activity>
         <activity android:name=".view.RecipeStepsMasterActivity" />
         <activity android:name=".view.RecipeStepsDetailActivity" />
-
         <!--
-        Note we can add below -> android:label="" -> so user see it when he selects the widget
+        Note I can add below -> android:label="" -> so user see it when he selects the widget
         but leaving it as application name is ok, it would be needed for multiple widgets.
         -->
-        <receiver android:name=".IngredientsWidgetProvider">
+        <receiver
+            android:name=".IngredientsWidgetProvider"
+            android:label="@string/ingredients_list">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -35,9 +36,26 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/ingredients_app_widget_info" />
         </receiver>
+        <activity android:name=".IngredientsWidgetConfigureActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+        <!--
+        Note I can add below -> android:label="" -> so user see it when he selects the widget
+        but leaving it as application name is ok, it would be needed for multiple widgets.
+        -->
+        <receiver android:name=".LauncherWidgetProvider"
+            android:label="@string/app_launcher">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/launcher_widget_provider_info" />
+        </receiver>
         <service android:name=".services.IntentServiceWidgetHelper" />
-        <service android:name=".services.WidgetServiceIngredients"
-            android:permission="android.permission.BIND_REMOTEVIEWS" />
         <service android:name=".services.JobServiceUpdateWidget"
             android:exported="false">
             <intent-filter>
@@ -51,6 +69,8 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </receiver>
+        <service android:name=".services.WidgetServiceIngredients"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
     </application>
 
 </manifest>

@@ -8,12 +8,12 @@ import android.content.Intent;
 import android.mohamedalaa.com.bakingapp.BaseApplication;
 import android.mohamedalaa.com.bakingapp.DataRepository;
 import android.mohamedalaa.com.bakingapp.IngredientsWidgetProvider;
-import android.mohamedalaa.com.bakingapp.R;
 import android.mohamedalaa.com.bakingapp.model.Recipe;
 import android.mohamedalaa.com.bakingapp.model.retrofit.RetrofitApiClient;
 import android.mohamedalaa.com.bakingapp.model.retrofit.RetrofitApiInterface;
 import android.mohamedalaa.com.bakingapp.receivers.BroadcastReceiverUpdateWidget;
 import android.mohamedalaa.com.bakingapp.utils.RecipeUtils;
+import android.mohamedalaa.com.bakingapp.utils.SharedPrefUtils;
 import android.mohamedalaa.com.bakingapp.utils.StringUtils;
 import android.os.Build;
 import android.support.annotation.Nullable;
@@ -100,10 +100,14 @@ public class IntentServiceWidgetHelper extends IntentService {
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
                 new ComponentName(this, IngredientsWidgetProvider.class));
-        //Trigger data update to handle the GridView widgets and force a data refresh
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.listView);
-        IngredientsWidgetProvider.performUpdate(
-                this, appWidgetManager, appWidgetIds, recipeList);
+        int indexChosen = SharedPrefUtils.getWidgetChosenRecipeIndex(getApplicationContext());
+        if (recipeList == null || indexChosen < 0){
+            IngredientsWidgetProvider.performUpdateOnAllIds(
+                    this, appWidgetManager, appWidgetIds, null);
+        }else {
+            IngredientsWidgetProvider.performUpdateOnAllIds(
+                    this, appWidgetManager, appWidgetIds, recipeList.get(indexChosen));
+        }
     }
 
     // ---- Public Static Methods ( to start actions here )

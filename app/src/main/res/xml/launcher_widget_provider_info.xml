@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- No need to update it
+ it will only be updated when it is created
+ to open main activity when clicked
+
+ I did that so user can have widget for app launching
+ and another for ingredients list
+ -->
+<appwidget-provider
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:initialLayout="@layout/launcher_widget_provider"
+    android:minHeight="40dp"
+    android:minWidth="40dp"
+    android:previewImage="@drawable/ic_base_recipe_image"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="0"/>

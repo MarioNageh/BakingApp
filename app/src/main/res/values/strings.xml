@@ -20,13 +20,26 @@
     <string name="retry">Retry</string>
     <string name="add_widget">Add widget</string>
 
-    <!-- item_ingredients_widget_list.xml -->
-    <string name="collapsed_or_expanded_recipe_ingredients">Collapsed or expanded recipe ingredients</string>
-
-    <!-- ingredients_app_widget.xml -->
+    <!-- app_widget_ingredients_list.xml -->
     <string name="refresh">Refresh</string>
+    <string name="change_recipe">Change Recipe</string>
 
     <!-- launcher_app_widget -->
     <string name="launcher_app_content_description">Baking App Icon</string>
+
+    <!-- activity_ingredients_widget_configure -->
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="widget_configuration_title_long">"Please, Select which Recipe to see it\'s ingredients in the widget."</string>
+
+    <!-- Ingredients Widget Configure Activity -->
+    <string name="widget_configuration_title_short">Widget Configuration</string>
+
+    <!-- item_widget_configuration -->
+    <string name="recipe_is_selected">Recipe is selected</string>
+
+    <!-- AndroidManifest.xml -->
+    <string name="ingredients_list">IngredientsList</string>
+    <string name="app_launcher">App Launcher</string>
 
 </resources>
